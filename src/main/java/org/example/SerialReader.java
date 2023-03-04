@@ -25,10 +25,10 @@ public class SerialReader implements SerialPortEventListener
             int len = 0;
             while ( ( data = in.read()) > -1 )
             {
-                if ( data == '\n' )
-                {
-                    break;
-                }
+//                if ( data == '\n' )
+//                {
+//                    break;
+//                }
                 buffer[len++] = (byte) data;
             }
             System.out.print(new String(buffer,0,len));
