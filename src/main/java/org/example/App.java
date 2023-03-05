@@ -10,8 +10,8 @@ public class App
     {
         try
         {
-            //String portName = "/dev/cu.usbmodem14131";
-            String portName = "COM6";
+            String portName = "/dev/cu.usbmodem14101";
+//            String portName = "COM6";
             (new TwoWaySerialComm()).connect(portName, 9600);
         }
         catch ( Exception e )
