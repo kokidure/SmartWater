@@ -1,4 +1,4 @@
-package org.example;
+package py.org.smartwater;
 
 import java.io.IOException;
 import java.io.OutputStream;

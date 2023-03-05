@@ -1,4 +1,4 @@
-package org.example;
+package py.org.smartwater;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,4 +1,4 @@
-package org.example;
+package py.org.smartwater;
 
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
