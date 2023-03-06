@@ -2,6 +2,7 @@ package py.org.smartwater;
 
 import py.com.lib.database.service.Database;
 import py.com.lib.util.exceptions.DataAccessException;
+import py.com.lib.util.log.json.JSONLogger;
 import py.com.lib.util.templates.Result;
 import py.org.smartwater.comunicador.ComunicadorSerial;
 import py.org.smartwater.entities.Medicion;
@@ -78,11 +79,26 @@ public class App
 
             comunicador.conectar();
 
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException e)
+            {
+                Thread.interrupted();
+            }
+
+            System.out.println("Enviando mensaje");
+
+            boolean enviado = comunicador.enviar("c\n");
+
+            System.out.println(enviado);
+
             //(new TwoWaySerialComm()).connect(portName, 9600);
         }
         catch ( Exception e )
         {
-            e.printStackTrace();
+            JSONLogger.error(e);
         }
     }
 

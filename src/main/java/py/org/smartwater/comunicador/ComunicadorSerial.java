@@ -17,6 +17,7 @@ public class ComunicadorSerial implements Comunicador
     private int baudRate;
     private List<String> mensajes = new LinkedList<String>();
     private SerialWriter serialWriter;
+    SerialPort serialPort;
 
     public ComunicadorSerial(String portName, int baudRate)
     {
@@ -49,10 +50,44 @@ public class ComunicadorSerial implements Comunicador
     }
 
     @Override
+    public boolean enviar(int msg)
+    {
+        if(this.serialWriter != null)
+        {
+            try
+            {
+//                this.serialWriter.write(msg);
+                OutputStream out = this.serialPort.getOutputStream();
+
+                out.write(msg);
+
+                out.flush();
+            }
+            catch(IOException e)
+            {
+                JSONLogger.error(e);
+                return false;
+            }
+        }
+        else
+        {
+            JSONLogger.error("No se puede enviar (no contectado)");
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public String recibir()
     {
-        String message = this.mensajes.remove(0);
-        return message;
+        if(this.mensajes != null && !this.mensajes.isEmpty())
+        {
+            String message = this.mensajes.remove(0);
+            return message;
+        }
+
+        return null;
     }
 
     @Override
@@ -71,7 +106,7 @@ public class ComunicadorSerial implements Comunicador
 
             if ( commPort instanceof SerialPort)
             {
-                SerialPort serialPort = (SerialPort) commPort;
+                this.serialPort = (SerialPort) commPort;
 
                 serialPort.setSerialPortParams(this.baudRate, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 
