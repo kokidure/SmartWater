@@ -1,4 +1,6 @@
-package py.org.smartwater;
+package py.org.smartwater.comunicador;
+
+import py.com.lib.util.log.json.JSONLogger;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,13 +21,23 @@ public class SerialWriter implements Runnable
             int c = 0;
             while ( ( c = System.in.read()) > -1 )
             {
-                this.out.write(c);
+                this.write(c);
             }
         }
         catch ( IOException e )
         {
-            e.printStackTrace();
+            JSONLogger.error(e);
             System.exit(-1);
         }
+    }
+
+    public void write(int c) throws IOException
+    {
+        this.out.write(c);
+    }
+
+    public void write(byte[] data) throws IOException
+    {
+        this.out.write(data);
     }
 }
